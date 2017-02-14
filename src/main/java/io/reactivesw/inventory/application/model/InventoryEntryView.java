@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
  */
 @Data
 @EqualsAndHashCode
-public class InventoryEntry {
+public class InventoryEntryView {
 
   /**
    * The unique ID of the inventory entry.
