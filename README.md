@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/reactivesw/inventory.svg?branch=master)](https://travis-ci.org/reactivesw/inventory)
 # 1, Name
 inventory service
 
