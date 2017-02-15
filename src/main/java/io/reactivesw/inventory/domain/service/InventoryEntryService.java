@@ -10,7 +10,7 @@ import io.reactivesw.inventory.application.model.mapper.InventoryEntryMapper;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
 import io.reactivesw.inventory.infrastructure.repository.InventoryEntryRepository;
 import io.reactivesw.inventory.infrastructure.update.UpdateAction;
-import io.reactivesw.inventory.infrastructure.update.Updater;
+import io.reactivesw.inventory.infrastructure.update.UpdaterService;
 import io.reactivesw.inventory.infrastructure.util.InventoryRequestUtils;
 import io.reactivesw.inventory.infrastructure.validator.InventoryEntryValidator;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class InventoryEntryService {
    * InventoryEntryUpdateService.
    */
   @Autowired
-  private transient Updater updateService;
+  private transient UpdaterService updateService;
 
   /**
    * Create inventory entry inventory entry.

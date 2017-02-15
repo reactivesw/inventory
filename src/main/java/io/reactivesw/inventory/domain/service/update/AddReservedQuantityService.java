@@ -4,15 +4,15 @@ import io.reactivesw.exception.ParametersException;
 import io.reactivesw.inventory.application.model.action.AddReservedQuantityAction;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
 import io.reactivesw.inventory.infrastructure.update.UpdateAction;
-import io.reactivesw.inventory.infrastructure.update.Updater;
 import io.reactivesw.inventory.infrastructure.util.InventoryEntryActionUtils;
+import io.reactivesw.model.Updater;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by Davis on 16/12/22.
  */
 @Service(value = InventoryEntryActionUtils.ADD_RESERVED_QUANTITY)
-public class AddReservedQuantityService extends Updater {
+public class AddReservedQuantityService implements Updater<InventoryEntry, UpdateAction> {
   /**
    * add reserved quantity.
    *

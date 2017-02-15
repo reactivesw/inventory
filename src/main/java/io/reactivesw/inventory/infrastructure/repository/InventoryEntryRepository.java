@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface InventoryEntryRepository extends JpaRepository<InventoryEntry, String> {
 
-  @Query(value = "select i from InventoryEntryView i where i.sku in ?1")
+  @Query(value = "select i from InventoryEntry i where i.sku in ?1")
   List<InventoryEntry> queryBySkuNames(List<String> skuNames);
 }

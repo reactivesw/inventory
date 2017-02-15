@@ -2,6 +2,7 @@ package io.reactivesw.inventory.infrastructure.update;
 
 import com.google.common.collect.ImmutableMap;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
+import io.reactivesw.model.Updater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.Map;
  * Created by umasuo on 16/12/7.
  */
 @Service
-public class Updater {
+public class UpdaterService implements Updater<InventoryEntry, UpdateAction> {
 
   /**
    * ImmutableMap for discount code update mapper.

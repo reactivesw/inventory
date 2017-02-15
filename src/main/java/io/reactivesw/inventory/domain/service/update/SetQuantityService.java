@@ -4,17 +4,18 @@ import io.reactivesw.exception.ParametersException;
 import io.reactivesw.inventory.application.model.action.SetQuantityAction;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
 import io.reactivesw.inventory.infrastructure.update.UpdateAction;
-import io.reactivesw.inventory.infrastructure.update.Updater;
 import io.reactivesw.inventory.infrastructure.util.InventoryEntryActionUtils;
+import io.reactivesw.model.Updater;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by Davis on 16/12/21.
  */
 @Service(value = InventoryEntryActionUtils.SET_QUANTITY)
-public class SetQuantityService extends Updater {
+public class SetQuantityService implements Updater<InventoryEntry, UpdateAction> {
   /**
    * set quantity.
+   *
    * @param entity E
    * @param action UpdateAction
    */
