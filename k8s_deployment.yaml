@@ -22,3 +22,5 @@ spec:
           value: jdbc:postgresql://pg-data/inventory
         - name: spring_cloud_config_uri
           value: http://reactivesw-config
+        - name: jwt_secret
+          value: test
