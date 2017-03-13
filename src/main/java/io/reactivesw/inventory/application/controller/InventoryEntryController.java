@@ -7,8 +7,7 @@ import io.reactivesw.inventory.application.model.PagedQueryResult;
 import io.reactivesw.inventory.domain.service.InventoryEntryService;
 import io.reactivesw.inventory.infrastructure.Router;
 import io.reactivesw.inventory.infrastructure.update.UpdateRequest;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +47,8 @@ public class InventoryEntryController {
    * @param draft the draft
    * @return the inventory entry
    */
-  @ApiOperation("create InventoryEntry")
   @PostMapping(Router.INVENTORY_ENTRY_ROOT)
-  public InventoryEntryView createInventoryEntry(@RequestBody
-                                                 @ApiParam(value = "InventoryEntry Draft",
-                                                     required = true)
-                                                 @Valid InventoryEntryDraft draft) {
+  public InventoryEntryView createInventoryEntry(@RequestBody @Valid InventoryEntryDraft draft) {
     LOG.debug("enter createInventoryEntry, inventory entry draft is : {}", draft.toString());
 
     InventoryEntryView result = inventoryEntryService.createInventoryEntry(draft);
@@ -69,14 +64,9 @@ public class InventoryEntryController {
    * @param id      the id
    * @param version the version
    */
-  @ApiOperation("delete InventoryEntry")
   @DeleteMapping(Router.INVENTORY_ENTRY_WITH_ID)
-  public void deleteInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
-                                   @ApiParam(value = "InventoryEntry Id", required = true)
-                                       String id,
-                                   @RequestParam
-                                   @ApiParam(value = "InventoryEntry Version", required = true)
-                                       Integer version) {
+  public void deleteInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID) String id,
+                                   @RequestParam Integer version) {
     LOG.debug("enter deleteInventoryEntry, id is : {}, version is : {}", id, version);
 
     inventoryEntryService.deleteInventoryEntry(id, version);
@@ -91,16 +81,10 @@ public class InventoryEntryController {
    * @param updateRequest the update request
    * @return the inventory entry
    */
-  @ApiOperation(value = "Update InventoryEntry")
   @PutMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public InventoryEntryView updateInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
-                                                 @ApiParam(value = "InventoryEntry ID", required
-                                                     = true)
                                                      String id,
-                                                 @RequestBody
-                                                 @ApiParam(value = "InventoryEntry Update Request",
-                                                     required = true)
-                                                     UpdateRequest updateRequest) {
+                                                 @RequestBody UpdateRequest updateRequest) {
     LOG.debug("enter updateInventoryEntry, id is {}, update InventoryEntry is {}",
         id, updateRequest.toString());
 
@@ -118,13 +102,9 @@ public class InventoryEntryController {
    * @param requests the inventory requests
    * @return the list
    */
-  @ApiOperation(value = "Update InventoryEntry")
   @PutMapping(Router.INVENTORY_ENTRY_ROOT)
-  public List<InventoryEntryView> updateInventoryEntryByList(@RequestBody
-                                                             @ApiParam(value = "list of update " +
-                                                                 "request",
-                                                                 required = true)
-                                                                 List<InventoryRequest> requests) {
+  public List<InventoryEntryView> updateInventoryEntryByList(@RequestBody List<InventoryRequest>
+                                                                   requests) {
     LOG.debug("enter updateInventoryEntryByList, update request is : {}", requests);
 
     // TODO: 17/2/8
@@ -140,11 +120,8 @@ public class InventoryEntryController {
    * @param id the id
    * @return the inventory entry by id
    */
-  @ApiOperation("get InventoryEntry by Id")
   @GetMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public InventoryEntryView getInventoryEntryById(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
-                                                  @ApiParam(value = "InventoryEntry ID",
-                                                      required = true)
                                                       String id) {
     LOG.debug("enter getInventoryEntryById, id is : {}", id);
 
@@ -161,12 +138,11 @@ public class InventoryEntryController {
    * @param skuNames the sku names
    * @return the paged query result
    */
-  @ApiOperation("query InventoryEntries by Sku names")
   @GetMapping(Router.INVENTORY_ENTRY_ROOT)
   public PagedQueryResult<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
-                                                                                    ("skuNames")
-                                                                                    List<String>
-                                                                                    skuNames) {
+                                                                                  ("skuNames")
+                                                                                  List<String>
+                                                                                  skuNames) {
     LOG.debug("enter queryInventoryEntriesBySkuNames, query conditions is : {}", skuNames);
 
     List<InventoryEntryView> inventoryEntries = inventoryEntryService.queryBySkuNames(skuNames);
