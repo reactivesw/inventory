@@ -3,7 +3,6 @@ package io.reactivesw.inventory.application.controller;
 import io.reactivesw.inventory.application.model.InventoryEntryDraft;
 import io.reactivesw.inventory.application.model.InventoryEntryView;
 import io.reactivesw.inventory.application.model.InventoryRequest;
-import io.reactivesw.inventory.application.model.PagedQueryResult;
 import io.reactivesw.inventory.domain.service.InventoryEntryService;
 import io.reactivesw.inventory.infrastructure.Router;
 import io.reactivesw.inventory.infrastructure.update.UpdateRequest;
@@ -24,28 +23,21 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-
 /**
- * Created by Davis on 16/12/21.
+ * The type Inventory entry controller.
  */
 @RestController
 public class InventoryEntryController {
-  /**
-   * log.
-   */
   private static final Logger LOG = LoggerFactory.getLogger(InventoryEntryController.class);
 
-  /**
-   * The Inventory entry service.
-   */
   @Autowired
   private transient InventoryEntryService inventoryEntryService;
 
   /**
-   * Create inventory entry inventory entry.
+   * Create inventory entry inventory entry view.
    *
    * @param draft the draft
-   * @return the inventory entry
+   * @return the inventory entry view
    */
   @PostMapping(Router.INVENTORY_ENTRY_ROOT)
   public InventoryEntryView createInventoryEntry(@RequestBody @Valid InventoryEntryDraft draft) {
@@ -75,11 +67,11 @@ public class InventoryEntryController {
   }
 
   /**
-   * Update InventoryEntry.
+   * Update inventory entry inventory entry view.
    *
    * @param id            the id
    * @param updateRequest the update request
-   * @return the inventory entry
+   * @return the inventory entry view
    */
   @PutMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public InventoryEntryView updateInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
@@ -97,9 +89,9 @@ public class InventoryEntryController {
   }
 
   /**
-   * Update inventory entry by list.
+   * Update inventory entry by list list.
    *
-   * @param requests the inventory requests
+   * @param requests the requests
    * @return the list
    */
   @PutMapping(Router.INVENTORY_ENTRY_ROOT)
@@ -133,24 +125,22 @@ public class InventoryEntryController {
   }
 
   /**
-   * Query inventory entries by sku names.
+   * Query inventory entries by sku names list.
    *
    * @param skuNames the sku names
-   * @return the paged query result
+   * @return the list
    */
   @GetMapping(Router.INVENTORY_ENTRY_ROOT)
-  public PagedQueryResult<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
+  public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
                                                                                   ("skuNames")
                                                                                   List<String>
                                                                                   skuNames) {
     LOG.debug("enter queryInventoryEntriesBySkuNames, query conditions is : {}", skuNames);
 
-    List<InventoryEntryView> inventoryEntries = inventoryEntryService.queryBySkuNames(skuNames);
-    PagedQueryResult<InventoryEntryView> result = new PagedQueryResult<>();
-    result.setTotal(inventoryEntries.size());
-    result.setResults(inventoryEntries);
+    List<InventoryEntryView> result = inventoryEntryService.queryBySkuNames(skuNames);
+
     LOG.debug("end queryInventoryEntriesBySkuNames, get InventoryEntries number is : {}",
-        inventoryEntries.size());
+        result.size());
 
     return result;
   }
