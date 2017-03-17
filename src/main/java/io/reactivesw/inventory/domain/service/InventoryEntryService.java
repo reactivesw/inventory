@@ -55,10 +55,10 @@ public class InventoryEntryService {
     LOG.debug("enter createInventoryEntry, inventory entry draft is : {}", draft.toString());
     // TODO: 17/1/4 validate product sku name
 
-    InventoryEntry entity = InventoryEntryMapper.modelToEntity(draft);
+    InventoryEntry entity = InventoryEntryMapper.mapToEntity(draft);
     InventoryEntry savedEntity = inventoryEntryRepository.save(entity);
 
-    InventoryEntryView result = InventoryEntryMapper.entityToModel(savedEntity);
+    InventoryEntryView result = InventoryEntryMapper.mapToModel(savedEntity);
 
     LOG.debug("end createInventoryEntry, new InventoryEntry is : {}", result.toString());
 
@@ -102,7 +102,7 @@ public class InventoryEntryService {
 
     InventoryEntry updatedEntity = inventoryEntryRepository.save(entity);
     //TODO send message, if slug be updated
-    InventoryEntryView result = InventoryEntryMapper.entityToModel(updatedEntity);
+    InventoryEntryView result = InventoryEntryMapper.mapToModel(updatedEntity);
 
     LOG.debug("end updateInventoryEntry, updated InventoryEntry is {}", result);
     return result;
@@ -166,7 +166,7 @@ public class InventoryEntryService {
 
     InventoryEntry entity = getInventoryEntryEntity(id);
 
-    InventoryEntryView result = InventoryEntryMapper.entityToModel(entity);
+    InventoryEntryView result = InventoryEntryMapper.mapToModel(entity);
 
     LOG.debug("end getInventoryEntryById, get result is : {}", result.toString());
 
@@ -187,7 +187,7 @@ public class InventoryEntryService {
     List<InventoryEntryView> result = Lists.newArrayList();
 
     if (inventoryEntryEntities != null) {
-      result = InventoryEntryMapper.entityToModel(inventoryEntryEntities);
+      result = InventoryEntryMapper.mapToModel(inventoryEntryEntities);
     }
 
     LOG.debug("end queryBySkuNames, get InventoryEntries number is : {}", result.size());
