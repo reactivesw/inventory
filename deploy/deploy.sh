@@ -49,5 +49,5 @@ echo '=============================finish gcloud container cluster credentials==
 echo '=============================kubectl create yaml==================================='
 kubectl delete deployment inventory
 kubectl delete service inventory
-kubectl create -f ./k8s.yaml
+kubectl create -f ./deploy/k8s.yaml
 echo '=============================finish kubectl create yaml============================'
