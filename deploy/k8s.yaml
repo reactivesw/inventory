@@ -22,9 +22,19 @@ items:
           - name: server_port
             value: "80"
           - name: spring_datasource_url
-            value: jdbc:postgresql://pg-data/inventory
+            value: jdbc:postgresql://reactivesw-data/inventory
           - name: spring_cloud_config_uri
             value: http://reactivesw-config
+          - name: spring_datasource_username
+            valueFrom:
+              secretKeyRef:
+                name: reactivesw-secret
+                key: postgres.username
+          - name: spring_datasource_password
+            valueFrom:
+              secretKeyRef:
+                name: reactivesw-secret
+                key: postgres.password
           - name: jwt_secret
             valueFrom:
               secretKeyRef:
@@ -44,4 +54,3 @@ items:
       nodePort: 30006
     selector:
       name: inventory
-
