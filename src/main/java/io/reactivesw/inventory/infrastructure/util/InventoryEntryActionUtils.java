@@ -5,11 +5,6 @@ package io.reactivesw.inventory.infrastructure.util;
  */
 public final class InventoryEntryActionUtils {
   /**
-   * Instantiates a new Inventory entry action utils.
-   */
-  private InventoryEntryActionUtils() {}
-
-  /**
    * The constant INVENTORY_ENTRY_ROOT.
    */
   private static final String INVENTORY_ENTRY_ROOT = "inventory_entry_";
@@ -33,8 +28,8 @@ public final class InventoryEntryActionUtils {
   /**
    * The constant remove_reserved_quantity.
    */
-  public static final String REMOVE_RESERVED_QUANTITY = INVENTORY_ENTRY_ROOT +
-      "remove_reserved_quantity";
+  public static final String REMOVE_RESERVED_QUANTITY =
+      INVENTORY_ENTRY_ROOT + "remove_reserved_quantity";
 
   /**
    * The constant set_expected_delivery.
@@ -49,12 +44,17 @@ public final class InventoryEntryActionUtils {
   /**
    * The constant set_restockable_in_days.
    */
-  public static final String SET_RESTOCKABLE_IN_DAYS = INVENTORY_ENTRY_ROOT +
-      "set_restockable_in_days";
+  public static final String SET_RESTOCKABLE_IN_DAYS =
+      INVENTORY_ENTRY_ROOT + "set_restockable_in_days";
 
   /**
    * The constant set_supply_channel.
    */
   public static final String SET_SUPPLY_CHANNEL = INVENTORY_ENTRY_ROOT + "set_supply_channel";
 
+  /**
+   * Instantiates a new Inventory entry action utils.
+   */
+  private InventoryEntryActionUtils() {
+  }
 }

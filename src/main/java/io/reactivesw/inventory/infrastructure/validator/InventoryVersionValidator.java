@@ -2,6 +2,7 @@ package io.reactivesw.inventory.infrastructure.validator;
 
 import io.reactivesw.exception.ConflictException;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,16 +11,16 @@ import java.util.Objects;
 /**
  * Created by Davis on 17/2/8.
  */
-public final class InventoryEntryValidator {
+public final class InventoryVersionValidator {
   /**
    * log.
    */
-  private static final Logger LOG = LoggerFactory.getLogger(InventoryEntryValidator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InventoryVersionValidator.class);
 
   /**
    * Instantiates a new Inventory entry validator.
    */
-  private InventoryEntryValidator() {
+  private InventoryVersionValidator() {
   }
 
   /**
@@ -28,7 +29,7 @@ public final class InventoryEntryValidator {
    * @param entity  the entity
    * @param version the version
    */
-  public static void validateVersion(InventoryEntry entity, Integer version) {
+  public static void validate(InventoryEntry entity, Integer version) {
     if (!Objects.equals(version, entity.getVersion())) {
       LOG.debug("Version not match, input version : {}, entity version : {}",
           version, entity.getVersion());
