@@ -28,6 +28,12 @@ public final class InventoryRequestUtils {
     ).collect(Collectors.toList());
   }
 
+  /**
+   * Gets sku quantity map.
+   *
+   * @param requests the requests
+   * @return the sku quantity map
+   */
   public static Map<String, Integer> getSkuQuantityMap(List<InventoryRequest> requests) {
     return requests.parallelStream().collect(
         Collectors.toMap(InventoryRequest::getSkuName, InventoryRequest::getQuantity)

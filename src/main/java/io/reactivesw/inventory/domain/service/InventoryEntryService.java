@@ -1,6 +1,7 @@
 package io.reactivesw.inventory.domain.service;
 
 import com.google.common.collect.Lists;
+
 import io.reactivesw.exception.NotExistException;
 import io.reactivesw.exception.ParametersException;
 import io.reactivesw.inventory.application.model.InventoryEntryDraft;
@@ -12,7 +13,8 @@ import io.reactivesw.inventory.infrastructure.repository.InventoryEntryRepositor
 import io.reactivesw.inventory.infrastructure.update.UpdateAction;
 import io.reactivesw.inventory.infrastructure.update.UpdaterService;
 import io.reactivesw.inventory.infrastructure.util.InventoryRequestUtils;
-import io.reactivesw.inventory.infrastructure.validator.InventoryEntryValidator;
+import io.reactivesw.inventory.infrastructure.validator.InventoryVersionValidator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +57,10 @@ public class InventoryEntryService {
     LOG.debug("enter createInventoryEntry, inventory entry draft is : {}", draft.toString());
     // TODO: 17/1/4 validate product sku name
 
-    InventoryEntry entity = InventoryEntryMapper.mapToEntity(draft);
+    InventoryEntry entity = InventoryEntryMapper.toEntity(draft);
     InventoryEntry savedEntity = inventoryEntryRepository.save(entity);
 
-    InventoryEntryView result = InventoryEntryMapper.mapToModel(savedEntity);
+    InventoryEntryView result = InventoryEntryMapper.toModel(savedEntity);
 
     LOG.debug("end createInventoryEntry, new InventoryEntry is : {}", result.toString());
 
@@ -74,7 +76,7 @@ public class InventoryEntryService {
   public void deleteInventoryEntry(String id, Integer version) {
     LOG.debug("enter deleteInventoryEntry, id is : {}, version is : {}", id, version);
     InventoryEntry entity = getInventoryEntryEntity(id);
-    InventoryEntryValidator.validateVersion(entity, version);
+    InventoryVersionValidator.validate(entity, version);
     inventoryEntryRepository.delete(id);
     LOG.debug("end deleteInventoryEntry, id is : {}, version is : {}", id, version);
   }
@@ -94,7 +96,7 @@ public class InventoryEntryService {
         id, version, actions);
 
     InventoryEntry entity = getInventoryEntryEntity(id);
-    InventoryEntryValidator.validateVersion(entity, version);
+    InventoryVersionValidator.validate(entity, version);
 
     actions.parallelStream().forEach(action -> {
       updateService.handle(entity, action);
@@ -102,7 +104,7 @@ public class InventoryEntryService {
 
     InventoryEntry updatedEntity = inventoryEntryRepository.save(entity);
     //TODO send message, if slug be updated
-    InventoryEntryView result = InventoryEntryMapper.mapToModel(updatedEntity);
+    InventoryEntryView result = InventoryEntryMapper.toModel(updatedEntity);
 
     LOG.debug("end updateInventoryEntry, updated InventoryEntry is {}", result);
     return result;
@@ -118,8 +120,8 @@ public class InventoryEntryService {
 
     Map<String, Integer> skuQuantity = InventoryRequestUtils.getSkuQuantityMap(requests);
 
-    List<InventoryEntry> inventoryEntryEntities = inventoryEntryRepository.queryBySkuNames
-        (skuNames);
+    List<InventoryEntry> inventoryEntryEntities =
+        inventoryEntryRepository.queryBySkuNames(skuNames);
 
     inventoryEntryEntities = updateInventoryByRequestMap(skuQuantity, inventoryEntryEntities);
 
@@ -144,8 +146,7 @@ public class InventoryEntryService {
 
           if (addReservedQuantity > srcAvailableQuantity || addReservedQuantity > srcQuantity) {
             throw new ParametersException(
-                "addReservedQuantity can not be greater than availabelQuantity and " +
-                    "quantityOnStock");
+                "addReservedQuantity can't be greater than availableQuantity and quantityOnStock");
           }
 
           entity.setAvailableQuantity(srcAvailableQuantity - addReservedQuantity);
@@ -166,7 +167,7 @@ public class InventoryEntryService {
 
     InventoryEntry entity = getInventoryEntryEntity(id);
 
-    InventoryEntryView result = InventoryEntryMapper.mapToModel(entity);
+    InventoryEntryView result = InventoryEntryMapper.toModel(entity);
 
     LOG.debug("end getInventoryEntryById, get result is : {}", result.toString());
 
@@ -181,13 +182,13 @@ public class InventoryEntryService {
    */
   public List<InventoryEntryView> queryBySkuNames(List<String> skuNames) {
     LOG.debug("enter queryBySkuNames, sku names is : {}", skuNames);
-    List<InventoryEntry> inventoryEntryEntities = inventoryEntryRepository.queryBySkuNames
-        (skuNames);
+    List<InventoryEntry> inventoryEntryEntities =
+        inventoryEntryRepository.queryBySkuNames(skuNames);
 
     List<InventoryEntryView> result = Lists.newArrayList();
 
     if (inventoryEntryEntities != null) {
-      result = InventoryEntryMapper.mapToModel(inventoryEntryEntities);
+      result = InventoryEntryMapper.toModel(inventoryEntryEntities);
     }
 
     LOG.debug("end queryBySkuNames, get InventoryEntries number is : {}", result.size());

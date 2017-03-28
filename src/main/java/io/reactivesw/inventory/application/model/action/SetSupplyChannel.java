@@ -3,6 +3,7 @@ package io.reactivesw.inventory.application.model.action;
 import io.reactivesw.inventory.infrastructure.update.UpdateAction;
 import io.reactivesw.inventory.infrastructure.util.InventoryEntryActionUtils;
 import io.reactivesw.model.Reference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,6 +21,10 @@ public class SetSupplyChannel implements UpdateAction {
   @NotNull
   private Reference supplyChannel;
 
+  /**
+   * get update service name.
+   * @return set_supply_channel
+   */
   @Override
   public String getActionName() {
     return InventoryEntryActionUtils.SET_SUPPLY_CHANNEL;

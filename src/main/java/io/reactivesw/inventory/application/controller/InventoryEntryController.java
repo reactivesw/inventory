@@ -28,10 +28,26 @@ import javax.validation.Valid;
  */
 @RestController
 public class InventoryEntryController {
+  /**
+   * log.
+   */
   private static final Logger LOG = LoggerFactory.getLogger(InventoryEntryController.class);
 
-  @Autowired
+  /**
+   * InventoryEntryService.
+   */
   private transient InventoryEntryService inventoryEntryService;
+
+
+  /**
+   * Instantiates a new Inventory entry controller.
+   *
+   * @param inventoryEntryService the inventory entry service
+   */
+  @Autowired
+  public InventoryEntryController(InventoryEntryService inventoryEntryService) {
+    this.inventoryEntryService = inventoryEntryService;
+  }
 
   /**
    * Create inventory entry inventory entry view.
@@ -96,7 +112,7 @@ public class InventoryEntryController {
    */
   @PutMapping(Router.INVENTORY_ENTRY_ROOT)
   public List<InventoryEntryView> updateInventoryEntryByList(@RequestBody List<InventoryRequest>
-                                                                   requests) {
+                                                                 requests) {
     LOG.debug("enter updateInventoryEntryByList, update request is : {}", requests);
 
     // TODO: 17/2/8
@@ -132,9 +148,9 @@ public class InventoryEntryController {
    */
   @GetMapping(Router.INVENTORY_ENTRY_ROOT)
   public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
-                                                                                  ("skuNames")
-                                                                                  List<String>
-                                                                                  skuNames) {
+                                                                      ("skuNames")
+                                                                      List<String>
+                                                                      skuNames) {
     LOG.debug("enter queryInventoryEntriesBySkuNames, query conditions is : {}", skuNames);
 
     List<InventoryEntryView> result = inventoryEntryService.queryBySkuNames(skuNames);

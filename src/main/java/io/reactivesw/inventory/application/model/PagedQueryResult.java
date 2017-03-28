@@ -9,13 +9,23 @@ import java.util.List;
  */
 @Data
 public class PagedQueryResult<T> {
-  Integer offset;
+  /**
+   * The Offset.
+   */
+  private Integer offset;
 
-  Integer count;
+  /**
+   * The Count.
+   */
+  private Integer count;
 
-  Integer total;
+  /**
+   * The Total.
+   */
+  private Integer total;
 
-  List<T> results;
-
-  Object facets;
+  /**
+   * The Results.
+   */
+  private List<T> results;
 }

@@ -1,13 +1,11 @@
 package io.reactivesw.inventory.infrastructure.update;
 
-import com.google.common.collect.ImmutableMap;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
 import io.reactivesw.model.Updater;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 /**
  * we may got two kind of update: just use the data in action, or still use data from other service.
@@ -17,13 +15,6 @@ import java.util.Map;
  */
 @Service
 public class UpdaterService implements Updater<InventoryEntry, UpdateAction> {
-
-  /**
-   * ImmutableMap for discount code update mapper.
-   */
-  Map<Class<?>, Updater> updateMappers = ImmutableMap.of(
-//      SetCustomerPaymentId.class, new SetCustomerPaymentIdMapper()
-  );
 
   /**
    * ApplicationContext for get update services.
@@ -37,23 +28,19 @@ public class UpdaterService implements Updater<InventoryEntry, UpdateAction> {
    * @param entity E
    * @param action UpdateAction
    */
+  @Override
   public void handle(InventoryEntry entity, UpdateAction action) {
-    Updater updater = getUpdateService(action.getClass());
+    Updater updater = getUpdateService(action);
     updater.handle(entity, action);
   }
 
   /**
    * get mapper.
    *
-   * @param clazz UpdateAction class
+   * @param action UpdateAction
    * @return ZoneUpdateMapper
    */
-  private Updater getUpdateService(Class<?> clazz) {
-    Updater updater = updateMappers.get(clazz);
-    if (updater == null) {
-      updater = (Updater) context.getBean(clazz);
-    }
-    return updater;
+  private Updater getUpdateService(UpdateAction action) {
+    return (Updater) context.getBean(action.getActionName());
   }
-
 }

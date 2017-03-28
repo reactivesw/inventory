@@ -2,8 +2,9 @@ package io.reactivesw.inventory.application.controller;
 
 import static io.reactivesw.inventory.infrastructure.Router.INVENTORY_HEALTH_CHECK;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,13 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by umasuo on 17/2/21.
  */
 @RestController
-public class IndexController {
+public class HealthController {
+  /**
+   * log.
+   */
+  private static final Logger LOG = LoggerFactory.getLogger(HealthController.class);
 
   /**
    * service name.
    */
-  @Value("${spring.application.name}")
-  private String serviceName;
+  private transient String serviceName;
+
+  /**
+   * Instantiates a new Health controller.
+   *
+   * @param serviceName the service name
+   */
+  public HealthController(@Value("${spring.application.name}") String serviceName) {
+    this.serviceName = serviceName;
+  }
 
   /**
    * this api is used for health check.
@@ -25,7 +38,9 @@ public class IndexController {
    * @return service name.
    */
   @GetMapping(INVENTORY_HEALTH_CHECK)
-  public String index() {
+  public String healthCheck() {
+    LOG.debug("enter healthCheck");
+
     return serviceName + ", system time: " + System.currentTimeMillis();
   }
 }

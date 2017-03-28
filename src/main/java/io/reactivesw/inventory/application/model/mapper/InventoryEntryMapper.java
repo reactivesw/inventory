@@ -5,6 +5,7 @@ import io.reactivesw.inventory.application.model.InventoryEntryView;
 import io.reactivesw.inventory.domain.model.InventoryEntry;
 import io.reactivesw.inventory.infrastructure.util.ReferenceTypes;
 import io.reactivesw.model.Reference;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public final class InventoryEntryMapper {
    * @param model the model
    * @return the inventory entry entity
    */
-  public static InventoryEntry mapToEntity(InventoryEntryDraft model) {
+  public static InventoryEntry toEntity(InventoryEntryDraft model) {
     InventoryEntry entity = new InventoryEntry();
 
     entity.setSku(model.getSku());
@@ -60,7 +61,7 @@ public final class InventoryEntryMapper {
    * @param entity the entity
    * @return the inventory entry
    */
-  public static InventoryEntryView mapToModel(InventoryEntry entity) {
+  public static InventoryEntryView toModel(InventoryEntry entity) {
     InventoryEntryView model = new InventoryEntryView();
 
     model.setId(entity.getId());
@@ -81,11 +82,17 @@ public final class InventoryEntryMapper {
     return model;
   }
 
-  public static List<InventoryEntryView> mapToModel(List<InventoryEntry> entities) {
-    LOG.debug("enter mapToModel, entity size is : {}", entities.size());
+  /**
+   * Map to model list.
+   *
+   * @param entities the entities
+   * @return the list
+   */
+  public static List<InventoryEntryView> toModel(List<InventoryEntry> entities) {
+    LOG.debug("enter toModel, entity size is : {}", entities.size());
 
     return entities.parallelStream().map(
-        entity -> mapToModel(entity)
+        entity -> toModel(entity)
     ).collect(Collectors.toList());
   }
 }
