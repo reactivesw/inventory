@@ -115,7 +115,6 @@ public class InventoryEntryController {
                                                                  requests) {
     LOG.debug("enter updateInventoryEntryByList, update request is : {}", requests);
 
-    // TODO: 17/2/8
     inventoryEntryService.updateInventoryBySkuNames(requests);
 
     LOG.debug("end updateInventoryEntryByList");
@@ -147,10 +146,8 @@ public class InventoryEntryController {
    * @return the list
    */
   @GetMapping(Router.INVENTORY_ENTRY_ROOT)
-  public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
-                                                                      ("skuNames")
-                                                                      List<String>
-                                                                      skuNames) {
+  public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam("skuNames")
+                                                                      List<String> skuNames) {
     LOG.debug("enter queryInventoryEntriesBySkuNames, query conditions is : {}", skuNames);
 
     List<InventoryEntryView> result = inventoryEntryService.queryBySkuNames(skuNames);
