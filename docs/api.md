@@ -31,6 +31,13 @@ TODO
 | restockableInDays | Integer | |
 | expectedDelivery | ZonedDateTime | data format is "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" |
 
+### InventoryRequest
+
+| field name | field type | comments |
+|-----|------|-----|
+| skuName | String | required, product sku name |
+| quantity | Intege | required |
+
 ### UpdateRequest
 
 | field name | field type | comments |
@@ -144,7 +151,7 @@ TODO
 
 * response : InventoryEntryView
 
-### update inventory by update request
+### change sku quantity by update request
 
 * URL : {service url}/
 * method : PUT
