@@ -106,6 +106,7 @@ public class InventoryEntryController {
 
   /**
    * Update inventory entry by list list.
+   * For order service, return void is ok.
    *
    * @param requests the requests
    * @return the list
