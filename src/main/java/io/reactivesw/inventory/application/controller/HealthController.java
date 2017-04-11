@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by umasuo on 17/2/21.
+ * health controller.
  */
 @RestController
 public class HealthController {
@@ -21,16 +21,8 @@ public class HealthController {
   /**
    * service name.
    */
+  @Value("${spring.application.name}")
   private transient String serviceName;
-
-  /**
-   * Instantiates a new Health controller.
-   *
-   * @param serviceName the service name
-   */
-  public HealthController(@Value("${spring.application.name}") String serviceName) {
-    this.serviceName = serviceName;
-  }
 
   /**
    * this api is used for health check.

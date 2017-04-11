@@ -1,5 +1,7 @@
 package io.reactivesw.inventory.infrastructure.update;
 
+import lombok.ToString;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,8 +10,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by Davis on 16/11/21.
+ * update request.
  */
+@ToString
 public class UpdateRequest {
   /**
    * The expected version build the category on which the changes should be applied.

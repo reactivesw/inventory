@@ -1,12 +1,12 @@
 package io.reactivesw.inventory.application.controller;
 
+import io.reactivesw.inventory.application.model.DeleteRequest;
 import io.reactivesw.inventory.application.model.InventoryEntryDraft;
 import io.reactivesw.inventory.application.model.InventoryEntryView;
 import io.reactivesw.inventory.application.model.InventoryRequest;
 import io.reactivesw.inventory.domain.service.InventoryEntryService;
 import io.reactivesw.inventory.infrastructure.Router;
 import io.reactivesw.inventory.infrastructure.update.UpdateRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,12 +57,11 @@ public class InventoryEntryController {
    */
   @PostMapping(Router.INVENTORY_ENTRY_ROOT)
   public InventoryEntryView createInventoryEntry(@RequestBody @Valid InventoryEntryDraft draft) {
-    LOG.debug("enter createInventoryEntry, inventory entry draft is : {}", draft.toString());
+    LOG.debug("enter createInventoryEntry. InventoryEntryDraft: {}", draft.toString());
 
     InventoryEntryView result = inventoryEntryService.createInventoryEntry(draft);
 
-    LOG.debug("end createInventoryEntry, new InventoryEntry is : {}", result.toString());
-
+    LOG.debug("end createInventoryEntry. InventoryEntryView: {}", result);
     return result;
   }
 
@@ -70,16 +69,16 @@ public class InventoryEntryController {
    * Delete inventory entry.
    *
    * @param id      the id
-   * @param version the version
+   * @param request the version
    */
   @DeleteMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public void deleteInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID) String id,
-                                   @RequestParam Integer version) {
-    LOG.debug("enter deleteInventoryEntry, id is : {}, version is : {}", id, version);
+                                   @RequestBody DeleteRequest request) {
+    LOG.debug("enter deleteInventoryEntry. id: {}, request: {}", id, request);
 
-    inventoryEntryService.deleteInventoryEntry(id, version);
+    inventoryEntryService.deleteInventoryEntry(id, request.getVersion());
 
-    LOG.debug("end deleteInventoryEntry, id is : {}, version is : {}", id, version);
+    LOG.debug("end deleteInventoryEntry. id: {}, request: {}", id, request);
   }
 
   /**
@@ -93,13 +92,13 @@ public class InventoryEntryController {
   public InventoryEntryView updateInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
                                                      String id,
                                                  @RequestBody UpdateRequest updateRequest) {
-    LOG.debug("enter updateInventoryEntry, id is {}, update InventoryEntry is {}",
-        id, updateRequest.toString());
+    LOG.debug("enter updateInventoryEntry. id: {}, UpdateRequest: {}",
+        id, updateRequest);
 
     InventoryEntryView result = inventoryEntryService.updateInventoryEntry(id,
         updateRequest.getVersion(), updateRequest.getActions());
 
-    LOG.debug("end updateInventoryEntry, updated InventoryEntry is {}", result.toString());
+    LOG.debug("end updateInventoryEntry. InventoryEntryView: {}", result);
 
     return result;
   }
@@ -113,7 +112,7 @@ public class InventoryEntryController {
   @PutMapping(Router.INVENTORY_ENTRY_ROOT)
   public List<InventoryEntryView> updateInventoryEntryByList(@RequestBody List<InventoryRequest>
                                                                  requests) {
-    LOG.debug("enter updateInventoryEntryByList, update request is : {}", requests);
+    LOG.debug("enter updateInventoryEntryByList. requests: {}", requests);
 
     // TODO: 17/2/8
     inventoryEntryService.updateInventoryBySkuNames(requests);

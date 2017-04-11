@@ -1,13 +1,12 @@
 package io.reactivesw.inventory.infrastructure.configuration;
 
 import io.reactivesw.inventory.infrastructure.util.ZonedDateTimeAuditorAware;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * Created by Davis on 16/11/28.
+ * ZonedDateTime config.
  */
 @Configuration
 @EnableJpaAuditing
