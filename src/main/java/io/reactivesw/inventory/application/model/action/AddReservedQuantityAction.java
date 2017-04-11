@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Davis on 16/12/22.
@@ -17,8 +18,9 @@ public class AddReservedQuantityAction implements UpdateAction {
   /**
    * The Add reserved quantity.
    */
+  @NotNull
   @Min(1)
-  private int addReservedQuantity;
+  private Integer addReservedQuantity;
 
   /**
    * get update service name.
