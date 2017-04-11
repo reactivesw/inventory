@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.time.ZonedDateTime;
 
 /**
- * Created by Davis on 16/11/17.
+ * InventoryEntryView.
  */
 @Data
 @EqualsAndHashCode

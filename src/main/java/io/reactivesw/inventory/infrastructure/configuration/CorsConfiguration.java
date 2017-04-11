@@ -7,18 +7,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by Davis on 17/3/13.
+ * CORS config.
  */
-// TODO: 16/12/16 add for CORS, if somethings wrong, should remove
 @Configuration
 public class CorsConfiguration {
+
   /**
-   * Cors configurer web mvc configurer.
+   * Cors configure web mvc configure.
    *
-   * @return the web mvc configurer
+   * @return the web mvc configure
    */
   @Bean
-  public WebMvcConfigurer corsConfigurer() {
+  public WebMvcConfigurer corsConfigure() {
     return new WebMvcConfigurerAdapter() {
       /**
        * add Cors rule.

@@ -1,12 +1,12 @@
 package io.reactivesw.inventory.application.controller;
 
+import io.reactivesw.inventory.application.model.DeleteRequest;
 import io.reactivesw.inventory.application.model.InventoryEntryDraft;
 import io.reactivesw.inventory.application.model.InventoryEntryView;
 import io.reactivesw.inventory.application.model.InventoryRequest;
 import io.reactivesw.inventory.domain.service.InventoryEntryService;
 import io.reactivesw.inventory.infrastructure.Router;
 import io.reactivesw.inventory.infrastructure.update.UpdateRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,12 +57,11 @@ public class InventoryEntryController {
    */
   @PostMapping(Router.INVENTORY_ENTRY_ROOT)
   public InventoryEntryView createInventoryEntry(@RequestBody @Valid InventoryEntryDraft draft) {
-    LOG.debug("enter createInventoryEntry, inventory entry draft is : {}", draft.toString());
+    LOG.debug("enter. InventoryEntryDraft: {}.", draft);
 
     InventoryEntryView result = inventoryEntryService.createInventoryEntry(draft);
 
-    LOG.debug("end createInventoryEntry, new InventoryEntry is : {}", result.toString());
-
+    LOG.debug("exit. InventoryEntryView: {}.", result);
     return result;
   }
 
@@ -70,16 +69,16 @@ public class InventoryEntryController {
    * Delete inventory entry.
    *
    * @param id      the id
-   * @param version the version
+   * @param request the version
    */
   @DeleteMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public void deleteInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID) String id,
-                                   @RequestParam Integer version) {
-    LOG.debug("enter deleteInventoryEntry, id is : {}, version is : {}", id, version);
+                                   @RequestBody DeleteRequest request) {
+    LOG.debug("enter. id: {}, request: {}.", id, request);
 
-    inventoryEntryService.deleteInventoryEntry(id, version);
+    inventoryEntryService.deleteInventoryEntry(id, request.getVersion());
 
-    LOG.debug("end deleteInventoryEntry, id is : {}, version is : {}", id, version);
+    LOG.debug("exit. id: {}, request: {}.", id, request);
   }
 
   /**
@@ -93,33 +92,37 @@ public class InventoryEntryController {
   public InventoryEntryView updateInventoryEntry(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
                                                      String id,
                                                  @RequestBody UpdateRequest updateRequest) {
-    LOG.debug("enter updateInventoryEntry, id is {}, update InventoryEntry is {}",
-        id, updateRequest.toString());
+    LOG.debug("enter. id: {}, UpdateRequest: {}.",
+        id, updateRequest);
 
     InventoryEntryView result = inventoryEntryService.updateInventoryEntry(id,
         updateRequest.getVersion(), updateRequest.getActions());
 
-    LOG.debug("end updateInventoryEntry, updated InventoryEntry is {}", result.toString());
+    LOG.debug("exit. InventoryEntryView: {}.", result);
 
     return result;
   }
 
   /**
+<<<<<<< HEAD
+   * Update inventory entry by list.
+=======
    * Update inventory entry by list list.
+   * For order service, return void is ok.
+>>>>>>> 1344f303e2fceaa4f9dd2ccf1b94eb090016601e
    *
    * @param requests the requests
    * @return the list
    */
   @PutMapping(Router.INVENTORY_ENTRY_ROOT)
-  public List<InventoryEntryView> updateInventoryEntryByList(@RequestBody List<InventoryRequest>
-                                                                 requests) {
-    LOG.debug("enter updateInventoryEntryByList, update request is : {}", requests);
+  public void updateInventoryEntryByList(@RequestBody List<InventoryRequest>
+                                             requests) {
+    LOG.debug("enter. requests: {}.", requests);
 
-    // TODO: 17/2/8
+
     inventoryEntryService.updateInventoryBySkuNames(requests);
 
-    LOG.debug("end updateInventoryEntryByList");
-    return null;
+    LOG.debug("exit updateInventoryEntryByList.");
   }
 
   /**
@@ -131,11 +134,11 @@ public class InventoryEntryController {
   @GetMapping(Router.INVENTORY_ENTRY_WITH_ID)
   public InventoryEntryView getInventoryEntryById(@PathVariable(value = Router.INVENTORY_ENTRY_ID)
                                                       String id) {
-    LOG.debug("enter getInventoryEntryById, id is : {}", id);
+    LOG.debug("enter. id: {}.", id);
 
     InventoryEntryView result = inventoryEntryService.getInventoryEntryById(id);
 
-    LOG.debug("end getInventoryEntryById, get result is : {}", result.toString());
+    LOG.debug("exit. InventoryEntryView: {}.", result);
 
     return result;
   }
@@ -147,16 +150,15 @@ public class InventoryEntryController {
    * @return the list
    */
   @GetMapping(Router.INVENTORY_ENTRY_ROOT)
-  public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam
-                                                                      ("skuNames")
-                                                                      List<String>
-                                                                      skuNames) {
-    LOG.debug("enter queryInventoryEntriesBySkuNames, query conditions is : {}", skuNames);
+  public List<InventoryEntryView> queryInventoryEntriesBySkuNames(@RequestParam("skuNames")
+                                                                      List<String> skuNames) {
+    LOG.debug("enter. skuNames: {}.", skuNames);
 
     List<InventoryEntryView> result = inventoryEntryService.queryBySkuNames(skuNames);
 
-    LOG.debug("end queryInventoryEntriesBySkuNames, get InventoryEntries number is : {}",
+    LOG.debug("exit. List<InventoryEntryView>: {}.",
         result.size());
+    LOG.trace("query result List<InventoryEntryView>: {}", result);
 
     return result;
   }

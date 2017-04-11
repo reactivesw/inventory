@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by Davis on 16/11/17.
+ * InventoryEntryDraft.
  */
 @Data
 @EqualsAndHashCode

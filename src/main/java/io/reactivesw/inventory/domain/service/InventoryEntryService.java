@@ -112,6 +112,7 @@ public class InventoryEntryService {
 
   /**
    * update inventory by sku names.
+   * For order service, return void is ok.
    *
    * @param requests update request
    */
