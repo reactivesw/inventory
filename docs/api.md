@@ -127,7 +127,7 @@ TODO
   |-|-|-|
   | id | String | required |
 
-* request param :
+* request body DeleteRequest:
 
   | name | type | comments |
   |-|-|-|
