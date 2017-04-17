@@ -4,6 +4,7 @@ items:
 - kind: Deployment
   apiVersion: extensions/v1beta1
   metadata:
+    namespace: dev
     name: inventory
   spec:
     replicas: 1
@@ -44,6 +45,7 @@ items:
   apiVersion: v1
   metadata:
     name: inventory
+    namespace: dev
     labels:
       name: inventory
   spec:
@@ -51,6 +53,6 @@ items:
     ports:
     - port: 80
       targetPort: 80
-      nodePort: 30006
+      nodePort: 30106
     selector:
       name: inventory
