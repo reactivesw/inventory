@@ -15,7 +15,7 @@ items:
       spec:
         containers:
         - name: inventory
-          image: reactivesw/inventory:0.0.1
+          image: reactivesw/inventory:0.0.4-dev
           imagePullPolicy: Always
           ports:
           - containerPort: 80
