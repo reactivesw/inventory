@@ -20,3 +20,11 @@ spring:
       ddl-auto: update
   profiles:
     active: test
+
+io:
+  reactivesw:
+    message:
+      brokerType: google
+      google:
+        project:
+          id: reactivesw-project
