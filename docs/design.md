@@ -17,6 +17,12 @@
 * Topic name: `reactivesw-order-created`
 * Subscription name: `inventory-order-created`
 
+Use gcloud command to create the subscription:
+
+```bash
+gcloud beta pubsub subscriptions create --topic reactivesw-order-created inventory-order-created
+```
+
 #### 4.1.3 Workflow
 
 1. get list of InventoryRequest and orderId from event message
@@ -40,6 +46,12 @@
 #### 4.2.2 Topic
 
 Topic name: `reactivesw-inventory-reserved`
+
+Use gcloud command to create the topic:
+
+```bash
+gcloud beta pubsub topics create reactivesw-inventory-reserved
+```
 
 #### 4.2.3 Workflow
 
