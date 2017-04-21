@@ -18,7 +18,7 @@ public class ReservedOrderEvent {
   /**
    * The status.
    */
-  private Boolean status;
+  private Boolean result;
 
   /**
    * The message.
@@ -37,7 +37,7 @@ public class ReservedOrderEvent {
     ReservedOrderEvent reservedOrderEvent = new ReservedOrderEvent();
 
     reservedOrderEvent.setOrderId(orderId);
-    reservedOrderEvent.setStatus(status);
+    reservedOrderEvent.setResult(status);
 
     return reservedOrderEvent;
   }
