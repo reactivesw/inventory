@@ -30,7 +30,7 @@ class ReservedOrderServiceTest extends Specification {
         def result = service.isReservedOrder(orderId)
 
         then:
-        result == false
+        result == true
     }
 
     def "Test2.2: reserved order not exist"() {
@@ -41,6 +41,6 @@ class ReservedOrderServiceTest extends Specification {
         def result = service.isReservedOrder(orderId)
 
         then:
-        result == true
+        result == false
     }
 }

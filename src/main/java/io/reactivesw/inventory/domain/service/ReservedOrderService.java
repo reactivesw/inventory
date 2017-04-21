@@ -61,7 +61,7 @@ public class ReservedOrderService {
 
     ReservedOrder orders = repository.findOne(ReservedOrderSpecification.exist(orderId));
 
-    if (orders != null) {
+    if (orders == null) {
       result = false;
     }
 
