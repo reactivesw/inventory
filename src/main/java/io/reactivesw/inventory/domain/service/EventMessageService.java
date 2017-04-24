@@ -2,10 +2,10 @@ package io.reactivesw.inventory.domain.service;
 
 import io.reactivesw.inventory.application.model.mapper.EventMessageMapper;
 import io.reactivesw.inventory.domain.model.EventMessage;
+import io.reactivesw.inventory.infrastructure.configuration.EventConfig;
 import io.reactivesw.inventory.infrastructure.enums.EventStatus;
 import io.reactivesw.inventory.infrastructure.repository.EventMessageRepository;
 import io.reactivesw.inventory.infrastructure.repository.EventMessageSpecification;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +32,31 @@ public class EventMessageService {
   private transient EventMessageRepository eventMessageRepository;
 
   /**
+   * Event message config.
+   */
+  private transient EventConfig eventConfig;
+
+  /**
    * Instantiates a new Event message service.
    *
    * @param eventMessageRepository the event message repository
    */
   @Autowired
-  public EventMessageService(EventMessageRepository eventMessageRepository) {
+  public EventMessageService(EventMessageRepository eventMessageRepository,
+                             EventConfig eventConfig) {
     this.eventMessageRepository = eventMessageRepository;
+    this.eventConfig = eventConfig;
   }
 
   /**
    * Save reserved order event.
    *
    * @param orderId the order id
-   * @param status the status
+   * @param status  the status
    */
   public void saveReservedOrderEvent(String orderId, Boolean status) {
     LOG.debug("Enter. OrderId: {}, status: {}.", orderId, status);
-    EventMessage message = EventMessageMapper.build(orderId, status);
+    EventMessage message = EventMessageMapper.build(orderId, status, eventConfig);
 
     EventMessage savedMessage = eventMessageRepository.save(message);
 

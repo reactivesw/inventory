@@ -2,6 +2,7 @@ package io.reactivesw.inventory.domain.service
 
 import com.google.common.collect.Lists
 import io.reactivesw.inventory.domain.model.EventMessage
+import io.reactivesw.inventory.infrastructure.configuration.EventConfig
 import io.reactivesw.inventory.infrastructure.enums.EventStatus
 import io.reactivesw.inventory.infrastructure.repository.EventMessageRepository
 import org.springframework.data.domain.Page
@@ -13,7 +14,8 @@ import spock.lang.Specification
  */
 class EventMessageServiceTest extends Specification {
     EventMessageRepository repository = Mock()
-    EventMessageService service = new EventMessageService(repository)
+    EventConfig eventConfig = new EventConfig(inventoryReservedName: "ineventoryReserved", inventoryReservedVersion: 1)
+    EventMessageService service = new EventMessageService(repository, eventConfig)
 
     def categoryId1 = "categoryId1"
     def categoryId2 = "categoryId2"

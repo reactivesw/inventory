@@ -35,4 +35,5 @@ dependencies {
     compile('com.google.cloud:google-cloud-pubsub:0.11.0-alpha')
     // For google collection lib
     compile('com.google.guava:guava:21.0')
+
 }

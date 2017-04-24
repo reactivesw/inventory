@@ -13,6 +13,7 @@ dependencies {
 
     // for mock non-interface
     testCompile('cglib:cglib-nodep:3.2.5')
+
 }
 
 jacocoCoverage { // Enforce minimum code coverage of 80% for every Java file.

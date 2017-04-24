@@ -76,8 +76,8 @@ public class OrderCreationEventHandler {
         reservedOrderService.saveReservedOrder(event.getOrderId());
         //2. store orderId
         reservedStatus = true;
-      } catch (ParametersException pEx) {
-        LOG.debug("Reserve inventory fail.", pEx);
+      } catch (ParametersException ex) {
+        LOG.debug("Reserve inventory fail.", ex);
       }
       //3. store remove inventory event
       eventMessageService.saveReservedOrderEvent(event.getOrderId(), reservedStatus);

@@ -2,12 +2,10 @@ package io.reactivesw.inventory.application.service;
 
 import io.reactivesw.inventory.application.model.OrderCreationEvent;
 import io.reactivesw.inventory.infrastructure.configuration.EventConfig;
-import io.reactivesw.inventory.infrastructure.util.EventSubscriberUtil;
 import io.reactivesw.message.client.consumer.Consumer;
 import io.reactivesw.message.client.core.DefaultConsumerFactory;
 import io.reactivesw.message.client.core.Message;
 import io.reactivesw.message.client.utils.serializer.JsonDeserializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +48,10 @@ public class OrderCreationConsumer {
    *
    * @param config the config
    */
+  @Autowired
   public OrderCreationConsumer(EventConfig config) {
     consumer = DefaultConsumerFactory.createGoogleConsumer(config.getGoogleCloudProjectId(),
-        EventSubscriberUtil.ORDER_CREATION);
+        config.getOrderCreatedSubscriber());
   }
 
   /**
