@@ -26,5 +26,14 @@ dependencies {
     //common tool
     compile('org.apache.commons:commons-lang3:3.4')
 
+    // For reactivesw commons lib
     compile("io.reactivesw:commons:0.0.1")
+    //message client
+    compile("io.reactivesw:message-client:0.0.1")
+
+    // For google pubsub lib
+    compile('com.google.cloud:google-cloud-pubsub:0.11.0-alpha')
+    // For google collection lib
+    compile('com.google.guava:guava:21.0')
+
 }
