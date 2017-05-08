@@ -2,14 +2,18 @@ package io.reactivesw.inventory.infrastructure.util;
 
 import io.reactivesw.inventory.application.model.InventoryRequest;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * Created by Davis on 17/2/8.
  */
 public final class InventoryRequestUtils {
+
   /**
    * Instantiates a new Inventory request utils.
    */
@@ -23,9 +27,10 @@ public final class InventoryRequestUtils {
    * @return the sku names
    */
   public static List<String> getSkuNames(List<InventoryRequest> requests) {
-    return requests.parallelStream().map(
-        request -> request.getSkuName()
-    ).collect(Collectors.toList());
+    Predicate<InventoryRequest> predicate = inventoryRequest -> StringUtils
+        .isNotBlank(inventoryRequest.getSkuName());
+    return requests.stream().filter(predicate).map(InventoryRequest::getSkuName)
+        .collect(Collectors.toList());
   }
 
   /**

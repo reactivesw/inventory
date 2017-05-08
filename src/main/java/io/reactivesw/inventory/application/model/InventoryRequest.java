@@ -2,12 +2,14 @@ package io.reactivesw.inventory.application.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
- * Created by Davis on 17/2/8.
+ * The type Inventory request.
  */
 @Getter
 @Setter
+@ToString
 public class InventoryRequest {
   /**
    * The Sku name.

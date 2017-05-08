@@ -63,10 +63,10 @@ public class OrderCreationEventHandler {
    */
   @Transactional
   public void handleOrderCreation(OrderCreationEvent event) {
-    LOG.debug("Enter. OrderId: {}.", event.getOrderId());
+    LOG.info("Enter. OrderId: {}, inventory request: {}.", event.getOrderId(), event.getInventoryRequests());
 
     if (reservedOrderService.isReservedOrder(event.getOrderId())) {
-      LOG.debug("Order: {} is exist.", event.getOrderId());
+      LOG.info("Order: {} is exist.", event.getOrderId());
     } else {
       //1. get request and remove inventory
       List<InventoryRequest> requests = event.getInventoryRequests();
@@ -82,6 +82,6 @@ public class OrderCreationEventHandler {
       //3. store remove inventory event
       eventMessageService.saveReservedOrderEvent(event.getOrderId(), reservedStatus);
     }
-    LOG.debug("Exit.");
+    LOG.info("Exit.");
   }
 }

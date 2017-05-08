@@ -159,7 +159,36 @@ class InventoryEntryServiceTest extends Specification {
         true
     }
 
-    def "test 6.1 : update inventory entry by list of request and quantity more than availabelQuantity and quantityOnStock"() {
+    def "Test6.2: update inventory by null request"() {
+        given:
+        List<InventoryRequest> requests = Lists.newArrayList()
+        def skuNames = Lists.newArrayList(skuName)
+        def inventoryList = Lists.newArrayList(inventoryEntryEntity)
+        inventoryEntryRepository.queryBySkuNames(skuNames) >> inventoryList
+
+        when:
+        inventoryEntryService.updateInventoryBySkuNames(requests)
+
+        then:
+        true
+    }
+
+    def "Test6.3: update inventory by null sku"() {
+        given:
+        InventoryRequest request = new InventoryRequest(quantity: 10)
+        List<InventoryRequest> requests = Lists.newArrayList(request)
+        def skuNames = Lists.newArrayList(skuName)
+        def inventoryList = Lists.newArrayList(inventoryEntryEntity)
+        inventoryEntryRepository.queryBySkuNames(skuNames) >> inventoryList
+
+        when:
+        inventoryEntryService.updateInventoryBySkuNames(requests)
+
+        then:
+        true
+    }
+
+    def "test 6.3 : update inventory entry by list of request and quantity more than availabelQuantity and quantityOnStock"() {
         given:
         InventoryRequest request = new InventoryRequest(skuName: skuName, quantity: 130)
         List<InventoryRequest> requests = Lists.newArrayList(request)

@@ -117,7 +117,13 @@ public class InventoryEntryService {
    * @param requests update request
    */
   public void updateInventoryBySkuNames(List<InventoryRequest> requests) {
+    LOG.debug("Enter. Requests: {}.", requests);
+
     List<String> skuNames = InventoryRequestUtils.getSkuNames(requests);
+    if (skuNames == null || skuNames.isEmpty()) {
+      LOG.debug("Can not update inventory by null sku.");
+      return;
+    }
 
     Map<String, Integer> skuQuantity = InventoryRequestUtils.getSkuQuantityMap(requests);
 
@@ -127,6 +133,7 @@ public class InventoryEntryService {
     inventoryEntryEntities = updateInventoryByRequestMap(skuQuantity, inventoryEntryEntities);
 
     inventoryEntryRepository.save(inventoryEntryEntities);
+    LOG.debug("Exit.");
   }
 
   /**
