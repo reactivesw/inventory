@@ -31,7 +31,7 @@ items:
           - name: io_reactivesw_message_topic_inventoryreserved_version
             value: "1"
           - name: io_reactivesw_message_topic_ordercreated_subscriber
-            value: dev-payment-order-pay
+            value: dev-inventory-order-reserve
           - name: spring_datasource_username
             valueFrom:
               secretKeyRef:

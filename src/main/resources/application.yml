@@ -25,6 +25,12 @@ io:
   reactivesw:
     message:
       brokerType: google
+      topic:
+        ordercreated:
+          subscriber: dev-inventory-order-reserve
+        inventoryreserved:
+          name: reactivesw-dev-inventory-reserved
+          version: 1
       google:
         project:
           id: reactivesw-project
